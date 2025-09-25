@@ -33,12 +33,12 @@ def test(request: HttpRequest) -> JsonResponse:
 
 @register('packages/<path:path>')
 @methods(['GET'])
-def packages_download(request: HttpRequest, path: str) -> Http404 | FileResponse:
+def packages_download(request: HttpRequest, path: str) -> FileResponse:
     full_path = PACKAGE_ROOT / path
     if not full_path.is_relative_to(PACKAGE_ROOT):
-        return Http404("invalid path.")
+        raise Http404("invalid path.")
     if not full_path.exists():
-        return Http404("file not found.")
+        raise Http404("file not found.")
     return FileResponse(open(full_path, 'rb'))
 
 
@@ -49,10 +49,10 @@ def simple(request: HttpRequest) -> HttpResponse:
     return render(request, 'simple.html', {'packages_folder': packages_folder})
 
 @register('simple/<str:package_name>/')
-def package_distributions(request: HttpRequest, package_name: str) -> HttpResponse | Http404:
+def package_distributions(request: HttpRequest, package_name: str) -> HttpResponse:
     package_folder = PACKAGE_ROOT / package_name
     if not package_folder.is_dir():
-        return Http404("package not found.")
+        raise Http404("package not found.")
     sha256 = lambda file: hashlib.sha256(open(file, 'rb').read()).hexdigest()
     data = [(file.name, sha256(file)) for file in package_folder.iterdir() if file.is_file()]
     return render(request, 'package_distributions.html', {'package_name': package_name, 'data': data})
