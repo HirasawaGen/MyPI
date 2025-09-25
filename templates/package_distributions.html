@@ -1,0 +1,4 @@
+<h1>Links for {{ package_name }}</h1>
+{% for name, hash in data %}
+    <a href="../../packages/{{ package_name }}/{{ name }}#sha256={{ hash }}">{{ name }}</a></br>
+{% endfor %}
