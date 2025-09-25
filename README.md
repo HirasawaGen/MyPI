@@ -18,7 +18,7 @@ then, clone and this repo:
 # clone this repo
 git clone https://github.com/HirasawaGen/MyPI.git
 # enter the repo
-cd MyPI
+cd ./MyPI
 # sync the dependencies
 uv sync
 # run the server (ip and port can be changed)
@@ -31,10 +31,10 @@ check did the server run successfully or not.
 
 no index page is normal, because I didn't implement it. maybe I will implement it later.
 
-If it is running successfully, then try to install demo *.whl files:
+If it is running successfully, then open a second terminal, try to install demo *.whl files:
 
 ```cmd
-# this two *.whl files are just for test
+cd ./MyPI
 uv pip install helloworld --index-url http://127.0.0.1:8000/simple/
 uv run -m helloworld
 ```
@@ -58,5 +58,3 @@ you can also download from your ip:
 
 `http://127.0.0.1:8000/packages/fibonacci/fibonacci-0.1-py3-none-any.whl#sha256=58ee07eeb5a46dc15314ef78b7e891b514136759a0be199727854a60e0876ffd`
 `http://127.0.0.1:8000/packages/helloworld/helloworld-0.1-py3-none-any.whl#sha256=0e86081497369eb0d1da3b232bf61f35406feee09ca8faa9605a95b2359b2413`
-
-
