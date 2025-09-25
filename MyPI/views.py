@@ -33,7 +33,7 @@ def test(request: HttpRequest) -> JsonResponse:
 
 @register('packages/<path:path>')
 @methods(['GET'])
-def packaegs_download(request: HttpRequest, path: str) -> Http404 | FileResponse:
+def packages_download(request: HttpRequest, path: str) -> Http404 | FileResponse:
     full_path = PACKAGE_ROOT / path
     if not full_path.is_relative_to(PACKAGE_ROOT):
         return Http404("invalid path.")
@@ -45,7 +45,7 @@ def packaegs_download(request: HttpRequest, path: str) -> Http404 | FileResponse
 @register('simple/')
 @methods(['GET'])
 def simple(request: HttpRequest) -> HttpResponse:
-    packages_folder = [dir.name for dir in PACKAGE_ROOT.iterdir() if dir.is_dir()] + ['test']
+    packages_folder = [dir.name for dir in PACKAGE_ROOT.iterdir() if dir.is_dir()]
     return render(request, 'simple.html', {'packages_folder': packages_folder})
 
 @register('simple/<str:package_name>/')
