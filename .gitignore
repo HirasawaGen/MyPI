@@ -10,5 +10,5 @@ wheels/
 .venv
 
 # packages file
-.whl
-.tar.gz
+*.whl
+*.tar.gz
